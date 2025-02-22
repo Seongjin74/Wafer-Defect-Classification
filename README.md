@@ -36,9 +36,14 @@ With the rapid development of deep learning technology, tasks traditionally perf
 
 ## Related Work
 
-Recent advances in semi-supervised learning have highlighted the power of methods like the FixMatch algorithm. FixMatch generates pseudo-labels from weakly augmented images and then uses them to supervise strongly augmented versions, provided that the prediction confidence is high (e.g., above 0.95). In the field of wafer defect detection, CNN-based methods and autoencoders have been successfully applied:
-- **CNNs** have improved defect inspection rates by replacing conventional image processing techniques.
-- **Autoencoders** extract latent features from wafer maps, enhancing data augmentation through robust image reconstruction.
+Recent advances in semi-supervised learning have made significant strides in leveraging unlabeled data to boost model performance. The **FixMatch algorithm** is at the core of our approach. FixMatch uniquely combines pseudo-labeling with consistency regularization by generating pseudo-labels from weakly augmented images and then applying them to strongly augmented versions. This method has proven effective in scenarios with limited labeled data, as it uses a confidence threshold (typically 0.95) to ensure only reliable pseudo-labels are used for training.
+
+In the realm of wafer defect detection:
+- **CNN-based approaches** have been widely explored to improve defect inspection rates compared to traditional methods.
+- **Autoencoder techniques** are utilized to extract robust latent features, which significantly enhance data augmentation by reconstructing images with subtle defect patterns.
+- **FixMatch in Wafer Defect Classification:** Our work specifically applies FixMatch to the wafer defect detection problem, combining its pseudo-labeling strategy with autoencoder-driven strong augmentation. This integration not only improves the robustness of the model under semi-supervised settings but also directly addresses the challenges of limited labeled data in semiconductor manufacturing.
+
+These combined techniques provide a strong foundation for our system, setting it apart from earlier approaches that relied solely on either CNNs or traditional semi-supervised methods without the additional augmentation benefits provided by autoencoders.
 
 ---
 
@@ -59,7 +64,7 @@ Our approach consists of several key components:
     - Applies additional random rotations (90-degree increments) to generate diverse images.
 
 - **Semi-Supervised Learning with FixMatch:**  
-  Pseudo-labels are generated from weakly augmented images when the model’s prediction confidence exceeds a predefined threshold. The model is then trained to maintain consistency between these pseudo-labels and the predictions from strongly augmented images.
+  Pseudo-labels are generated from weakly augmented images when the model’s prediction confidence exceeds a predefined threshold. These labels are then enforced on the strongly augmented images, ensuring the model learns consistency even with a mix of labeled and unlabeled data.
 
 - **Model Architecture:**  
   A simple yet efficient CNN, termed **SimpleCNN**, is used. It consists of:
